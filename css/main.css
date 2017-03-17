@@ -1,0 +1,22 @@
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+main.container {
+  width: 85%;
+  text-align: left;
+  overflow: hidden;
+  line-height: 1.5;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .wrapper,
+  .container {
+    width: 80%;
+    text-align: left;
+    overflow: hidden;
+    line-height: 2;
+    margin: 0 auto;
+  }
+}
