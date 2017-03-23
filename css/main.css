@@ -10,6 +10,11 @@ main.container {
   margin: 0 auto;
 }
 
+.highlight {
+  color: orange;
+  font-size: 1.1em;
+  font-weight: 700; }
+
 @media (min-width: 768px) {
   .wrapper,
   .container {

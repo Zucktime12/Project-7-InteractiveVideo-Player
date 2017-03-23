@@ -1,3 +1,8 @@
+$('video').mediaelementplayer({
+  success: function(player, node) {
+    $('#' + node.id + "-mode").html("mode: " + player.pluginType);
+  }
+});
 let j = 0;
 const textWrapper = document.querySelector('.container');
 const lines = document.querySelectorAll('main span');
@@ -19,34 +24,34 @@ const textTime = [
   [53.760, 57.780],
   [57.780, 61]
 ];
-function highlightCaption(span, hightlight = 'yes'){
+function highlightCaption(text, hightlight = "yes"){
   if (hightlight == 'yes'){
-    span.style.color = 'orange';
-    span.style.fontWeight = 'bold';
-  }else if(hightlight == 'reset') {
-    span.style.color = '#000';
-    span.style.fontWeight = 'normal';
+    text.classList.add("highlight");
+  } else if(hightlight == 'clear') {
+    text.classList.remove("highlight");
   }
 }
 // Click on caption text to nagivate video
-textWrapper.addEventListener('click', (event) => {
+textWrapper.addEventListener('click', (e) => {
   // Clear Highlight
-  for(let i = 0; i < lines.length; i++){
-    highlightCaption(lines[i], 'reset');
+  for (let i = 0; i < lines.length; i+= 1){
+    if (lines[i].className == "highlight") {
+     highlightCaption(lines[i], "clear");
+    }
   }
   // Jump video to the caption's start time
-  let startTime = event.target.className;
-  video.play();
+  let startTime = e.target.id;
+  // video.play();
   video.setCurrentTime(textTime[startTime][0]);
   j = startTime;
 });
 // Highlight captions
 video.addEventListener('timeupdate', () => {
-  let caption = document.getElementsByClassName(j)[0];
+  let caption = document.getElementById(j);
   if (video.getCurrentTime() >= textTime[j][0] &&  video.getCurrentTime() < textTime[j][1]){
     highlightCaption(caption);
-  } else if (!video.paused){
-    highlightCaption(caption, 'reset');
+  } else {
+    highlightCaption(caption, 'clear');
     j++;
   }
 });
